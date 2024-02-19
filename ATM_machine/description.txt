@@ -1,0 +1,6 @@
+This project should commit Bank basic functions:
+- Registering client account
+- Deposit money
+- Take out money
+- Log in account
+- Show information about client account
