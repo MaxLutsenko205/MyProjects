@@ -83,7 +83,7 @@ public class Code_examples {
 //        -To work with files you need import package classes:
 //        import java.io.File;
 //        -To write into files:
-//        import java.io.FileWriter;
+//        import java.io.FileWriter;s
 //        -To catch exceptions related with file:
 //        import java.io.IOException;
 //        -To catch exceptions related with file reading:

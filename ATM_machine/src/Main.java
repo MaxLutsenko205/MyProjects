@@ -1,9 +1,8 @@
-import com.sun.source.tree.WhileLoopTree;
-
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.IOException;
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args)  throws IOException {
 
 //        Variables:
         Scanner s = new Scanner(System.in);
@@ -14,6 +13,7 @@ public class Main {
         ArrayList<Client> clients = new ArrayList<>();
         String request = null;
         boolean running = true;
+        Recorder recorder = new Recorder(); // for recording all actions(changes)
 
 //        Introduction
         System.out.println("========== ATM MACHINE ==========");
@@ -51,8 +51,8 @@ public class Main {
                         newId++; //id for next client
 
                         clientExist = true;     // end registration
-
                         inProcess = true;
+                        recorder.recordToFile("Was registered a new client: "+name+" "+lname); // recording
                     }
 
 //                      client log in
@@ -75,9 +75,11 @@ public class Main {
                         }
                         if (!exist) {
                             System.out.println("Invalid name or password!");
+                            recorder.recordToFile("Log in error!");
                         } else {
                             clientExist = true; //end of verification if data is correct
                             inProcess = true;
+                            recorder.recordToFile("Client logged in: "+name+" "+lname); // recording
                         }
                     }
 //                    program stopping
@@ -85,6 +87,7 @@ public class Main {
                         running = false;
                         clientExist = true;
                         inProcess = false;
+                        recorder.recordToFile("Program is stopped");
                     }
                     default -> System.out.println("Invalid request!");
                 }
@@ -118,12 +121,15 @@ public class Main {
                     case "exit" -> {
                         inProcess = false;
                         clientExist = false;
+                        recorder.recordToFile("Client "+clients.get(id).getName()+" "+clients.get(id).getLname()
+                        +" logged out");
                     }
                     default -> System.out.println("Incorrect request! Please try again");
                 }
 
             }
         }
+        recorder.stopWriting();
     }
 
 }

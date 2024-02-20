@@ -1,26 +1,26 @@
 public class Client {
-    private int id;
-    private String name;
-    private String lname;
+    private final int id;
+    private final String name;
+    private final String lname;
     private float bill;
-    private String password;
-
+    private final String password;
 
     public int getId(){
         return id;
     }
+
     public String getName(){
         return name;
     }
+
     public String getLname(){
         return lname;
     }
-    public float getBill(){
-        return bill;
-    }
+
     public String getPassword(){
         return password;
     }
+
     public String getClientInfo(){
         return (name+" "+lname+": "+bill);
     }
@@ -47,6 +47,5 @@ public class Client {
         this.password = password;
         bill = 0;
     }
-
 
 }
