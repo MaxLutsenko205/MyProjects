@@ -92,13 +92,18 @@ public class Main {
 
 
             //        Machine body
+            if (inProcess){
+                System.out.println("To show commands - \"info\"");
+            }
             while (inProcess) {
-                System.out.println("  *Show account information - \"show\"\n" +
-                        "  *Deposit money - \"in\"\n" +
-                        "  *Take money back - \"out\"\n" +
-                        "  *Log out - \"exit\"\n");
                 request = s.next(); //entering a command
                 switch (request) {
+                    case "info" -> {
+                        System.out.println("  *Show account information - \"show\"\n" +
+                            "  *Deposit money - \"in\"\n" +
+                            "  *Take money back - \"out\"\n" +
+                            "  *Log out - \"exit\"\n");
+                    }
                     case "in" -> {
                         System.out.print("What amount you want to put: ");
                         float amount = s.nextFloat();
