@@ -151,5 +151,17 @@ public class Code_examples {
             System.out.println("Something wrong");
         }*/
 
+//        generics
+        /*With generics you can give any type of variable into object
+        public class Printer <T>{
+          public T data;
+          public Printer (T data){
+              this.data = data
+              System.out.println(data);
+          }
+        }
+          In main class
+        Printer<Integer> printer = new Printer<>(23);
+        Printer<String> printer = new Printer<>("Hello");*/
     }
 }
