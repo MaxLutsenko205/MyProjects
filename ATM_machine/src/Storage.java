@@ -1,3 +1,4 @@
+// this class perform a database functions using HashMap
 import java.util.HashMap;
 
 public class Storage {
@@ -9,6 +10,7 @@ public class Storage {
         clientsData.put("Ivan S", "qwerty");
     }
 
+//    method for conveying the database into LoginPage
     protected HashMap<String,String> getClientsData(){
         return clientsData;
     }
