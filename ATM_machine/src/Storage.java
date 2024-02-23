@@ -5,13 +5,17 @@ public class Storage {
     HashMap<String,String> clientsData = new HashMap<String,String>();
 
     Storage (){
-        clientsData.put("Max L", "123456");
-        clientsData.put("Arman I", "000000");
-        clientsData.put("Ivan S", "qwerty");
+        clientsData.put("Maxim", "123456");
+        clientsData.put("Arman", "000000");
+        clientsData.put("Ivan", "qwerty");
     }
 
 //    method for conveying the database into LoginPage
     protected HashMap<String,String> getClientsData(){
         return clientsData;
     }
+
+//    protected void setClientData(String id, String password){
+//        clientsData.put(id, password);
+//    }
 }

@@ -1,8 +1,11 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.util.stream.Stream;
 
 public class Code_examples {
     public static void main(String[] args) {
@@ -163,5 +166,84 @@ public class Code_examples {
           In main class
         Printer<Integer> printer = new Printer<>(23);
         Printer<String> printer = new Printer<>("Hello");*/
+
+
+//        casting
+
+//        double a = 2.4;
+//        int b = (int)a;
+
+//        class A{}
+//        class B extends A{}
+//        A obj = (A) new B(); // upcasting
+//        B obj1 = (B) obj; // downcasting
+
+
+        //        Threads
+//        allow you to run different processes at the same time
+        /*public static class A extends Thread {
+            public void show() throws InterruptedException { // exception for sleep method
+                System.out.println("class A");
+                Thread.sleep(10); // method for stopping thread for defined period (10 millis)
+            }
+        }
+        public static class B extends Thread {
+            public void show() {
+                System.out.println("class B");
+            }
+        }
+//        in the main class
+        A a = new A();
+        B b = new B();
+        b.setPriority(Thread.MAX_PRIORITY); // set max priority via constant
+        a.setPriority(6); // setting priority 6 (from 1 to 10)
+        a.start();  //starting executing a thread A
+        b.start();  //starting executing a thread B
+
+        public synchronized void methodName(){}   // synchronized key word allow to use method by terns when 2 or more threads are processing
+        */
+
+
+//        Anonymous inner class
+//        also works with abstract class
+        /*class A{
+            public void show(){
+                System.out.println("it is the method");
+            }
+        }
+        A obj = new A(){    // creating an anonymous class in the process of creating object
+            public void show(){
+                System.out.println("it is the anonymous class");
+            }
+        };
+        obj.show();*/
+
+
+//        Interfaces need to predefine or design classes
+//        -methods in interface have public abstract type
+//        -variables in interface have final static(use without object) type
+
+
+//        Lambda expression method
+//        @FunctionalInterface // annotation uses for determine your intention
+//        interface A{
+//          void add(int a, int b);
+//        }
+//        A obj = (int a, int b) -> System.out.println(a+b); // Lambda expression uses for fast creating methods
+//        obj.add(3,5);
+
+
+//    Streams need to operate with data and they uses only ones in running time
+//        List<Integer> l = Arrays.asList(1, 20, 5, 3, 6, 4);     // creating a list
+//        Stream<Integer> s1 = l.stream();    // converting a list into stream
+//        Stream<Integer> s2 = s1.filter(n -> n%2!=0);    // using stream filter method(lambda expression in parentheses)
+//        s2.forEach(System.out::println);    // using forEach loop for printing the values
+//        // or
+//        int result = l.stream()     //converting into stream
+//                .filter(n -> n%2==0)    // filtering only even numbers
+//                .map(n -> n*3)      // changing the values
+//                .reduce(0, (c,e) -> c+e);   // sum of the values
+//        System.out.println(result);
     }
 }
+

@@ -1,3 +1,4 @@
--Was registered a new client: N L
--Client N L logged out
+-Was registered a new client: Maxim Lutsenko
+-Client Maxim Lutsenko logged out
+-Log in error!
 -Program is stopped
