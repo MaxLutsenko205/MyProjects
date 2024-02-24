@@ -5,28 +5,22 @@ import java.util.Scanner;
 public class Client_example {
     public static void main(String[] args) throws IOException {
 
-        Socket socket = null;
-        InputStreamReader inputStreamReader = null;
-        OutputStreamWriter outputStreamWriter = null;
-        BufferedReader bufferedReader = null;
-        BufferedWriter bufferedWriter = null;
+        Socket socket = new Socket("localhost", 999);   // creating a socket for connect to server
 
-        socket = new Socket("localhost", 999);
+        InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream()); // for take information from server
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());  // for send information to server
 
-        inputStreamReader = new InputStreamReader(socket.getInputStream());
-        outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader); // improving streams with buffered classes
+        BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
 
-        bufferedReader = new BufferedReader(inputStreamReader);
-        bufferedWriter = new BufferedWriter(outputStreamWriter);
-
-        Scanner s = new Scanner(System.in);
+        Scanner s = new Scanner(System.in); // for catching user inputs
         while (true){
 
             String message = s.nextLine();
 
-            bufferedWriter.write(message);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
+            bufferedWriter.write(message);  // writing message for send it to server
+            bufferedWriter.newLine(); // adding \n into message
+            bufferedWriter.flush(); // for immediate writing data
 
             System.out.println(bufferedReader.readLine());
 
