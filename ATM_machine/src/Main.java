@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -5,6 +7,7 @@ public class Main {
     public static void main(String[] args)  throws IOException {
 
 //        Variables:
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         Scanner s = new Scanner(System.in);
         boolean inProcess = true; //need for body work
         boolean clientExist = false; //need to verification
@@ -25,20 +28,21 @@ public class Main {
                 System.out.println("If you are new client - \"reg\"\n" +
                         "If you already have account - \"log\"\n" +
                         "To stop program - \"stop\"");
-                request = s.next();
+                request = bufferedReader.readLine();
 
                 switch (request) {
 //                      Client registration
                     case "reg" -> {
                         System.out.print("Please write your first name: ");
-                        String name = s.next();
+//                        String name = s.next();
+                        String name = bufferedReader.readLine();
                         System.out.print("Please write your second name: ");
-                        String lname = s.next();
+                        String lname = bufferedReader.readLine();
                         System.out.print("Password(greater than 5 characters): ");
                         boolean available = false;
                         String password = null;
                         while (!available) {
-                            password = s.next();
+                            password = bufferedReader.readLine();
                             if (password.length() > 5) {
                                 available = true;
                             } else {
@@ -58,11 +62,11 @@ public class Main {
 //                      client log in
                     case "log" -> {
                         System.out.print("Your first name: ");
-                        String name = s.next();
+                        String name = bufferedReader.readLine();
                         System.out.print("Your second name: ");
-                        String lname = s.next();
+                        String lname = bufferedReader.readLine();
                         System.out.print("Password: ");
-                        String password = s.next();
+                        String password = bufferedReader.readLine();
                         boolean exist = false;
                         for (Client client : clients)       // checking if client exist in database
                         {
@@ -99,7 +103,7 @@ public class Main {
                 System.out.println("To show commands - \"info\"");
             }
             while (inProcess) {
-                request = s.next(); //entering a command
+                request = bufferedReader.readLine(); //entering a command
                 switch (request) {
                     case "info" -> {
                         System.out.println("  *Show account information - \"show\"\n" +
@@ -109,12 +113,12 @@ public class Main {
                     }
                     case "in" -> {
                         System.out.print("What amount you want to put: ");
-                        float amount = s.nextFloat();
+                        float amount = Float.parseFloat(bufferedReader.readLine());
                         clients.get(id).setMoneyIntoBill(amount);
                     }
                     case "out" -> {
                         System.out.print("What amount you want to get: ");
-                        float amount = s.nextFloat();
+                        float amount = Float.parseFloat(bufferedReader.readLine());
                         clients.get(id).getMoneyFromBill(amount);
                     }
                     case "show" -> System.out.println(clients.get(id).getClientInfo());
@@ -130,6 +134,7 @@ public class Main {
             }
         }
         recorder.stopWriting();
+        bufferedReader.close();
     }
 
 }

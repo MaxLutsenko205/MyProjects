@@ -2,7 +2,7 @@
 import java.util.HashMap;
 
 public class Storage {
-    HashMap<String,String> clientsData = new HashMap<String,String>();
+    HashMap<String,String> clientsData = new HashMap<>();
 
     Storage (){
         clientsData.put("Maxim", "123456");
