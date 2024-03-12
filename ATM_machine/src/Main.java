@@ -1,33 +1,35 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args)  throws IOException {
 
 //        Variables:
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        Scanner s = new Scanner(System.in);
-        boolean inProcess = true; //need for body work
+        boolean inProcess = false; //need for body work
         boolean clientExist = false; //need to verification
         int id = 0;
         int newId = 0;
-        ArrayList<Client> clients = new ArrayList<>();
+
+        List<Client> clients = new ArrayList<>();
+        Database database = new Database();
+
         String request = null;
-        boolean running = true;
-        Recorder recorder = new Recorder(); // for recording all actions(changes)
 
 //        Introduction
         System.out.println("========== ATM MACHINE ==========");
         System.out.println("For using machine write needed request:\n");
 
-        while (running) {
+        while (true) {
             while (!clientExist) {
 
-                System.out.println("If you are new client - \"reg\"\n" +
-                        "If you already have account - \"log\"\n" +
-                        "To stop program - \"stop\"");
+                System.out.println("""
+                        If you are new client - "reg"
+                        If you already have account - "log"
+                        To stop program - "stop\"""");
                 request = bufferedReader.readLine();
 
                 switch (request) {
@@ -50,13 +52,13 @@ public class Main {
                             }
                         }
                         clients.add(new Client(newId, name, lname, password));
+                        database.addClient(newId, name, lname, password);
                         System.out.println("New client registered!");
                         id = newId;
                         newId++; //id for next client
 
                         clientExist = true;     // end registration
                         inProcess = true;
-                        recorder.recordToFile("Was registered a new client: "+name+" "+lname); // recording
                     }
 
 //                      client log in
@@ -79,19 +81,16 @@ public class Main {
                         }
                         if (!exist) {
                             System.out.println("Invalid name or password!");
-                            recorder.recordToFile("Log in error!");
                         } else {
                             clientExist = true; //end of verification if data is correct
                             inProcess = true;
-                            recorder.recordToFile("Client logged in: "+name+" "+lname); // recording
                         }
                     }
 //                    program stopping
                     case "stop" -> {
-                        running = false;
-                        clientExist = true;
-                        inProcess = false;
-                        recorder.recordToFile("Program is stopped");
+                        bufferedReader.close();
+                        database.connectionClose();
+                        System.exit(-1);
                     }
                     default -> System.out.println("Invalid request!");
                 }
@@ -99,17 +98,17 @@ public class Main {
 
 
             //        Machine body
-            if (inProcess){
-                System.out.println("To show commands - \"info\"");
-            }
+            System.out.println("To show commands - \"info\"");
             while (inProcess) {
                 request = bufferedReader.readLine(); //entering a command
                 switch (request) {
                     case "info" -> {
-                        System.out.println("  *Show account information - \"show\"\n" +
-                            "  *Deposit money - \"in\"\n" +
-                            "  *Take money back - \"out\"\n" +
-                            "  *Log out - \"exit\"\n");
+                        System.out.println("""
+                                  *Show account information - "show"
+                                  *Deposit money - "in"
+                                  *Take money back - "out"
+                                  *Log out - "exit"
+                                """);
                     }
                     case "in" -> {
                         System.out.print("What amount you want to put: ");
@@ -125,16 +124,12 @@ public class Main {
                     case "exit" -> {
                         inProcess = false;
                         clientExist = false;
-                        recorder.recordToFile("Client "+clients.get(id).getName()+" "+clients.get(id).getLname()
-                        +" logged out");
                     }
                     default -> System.out.println("Incorrect request! Please try again");
                 }
 
             }
         }
-        recorder.stopWriting();
-        bufferedReader.close();
     }
 
 }
