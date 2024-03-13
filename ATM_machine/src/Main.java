@@ -1,11 +1,12 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args)  throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
 
 //        Variables:
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -36,13 +37,13 @@ public class Main {
 //                      Client registration
                     case "reg" -> {
                         System.out.print("Please write your first name: ");
-//                        String name = s.next();
                         String name = bufferedReader.readLine();
                         System.out.print("Please write your second name: ");
                         String lname = bufferedReader.readLine();
                         System.out.print("Password(greater than 5 characters): ");
                         boolean available = false;
                         String password = null;
+//                        checking password length
                         while (!available) {
                             password = bufferedReader.readLine();
                             if (password.length() > 5) {
@@ -51,9 +52,9 @@ public class Main {
                                 System.out.print("Too short, write again: ");
                             }
                         }
-                        clients.add(new Client(newId, name, lname, password));
-                        database.addClient(newId, name, lname, password);
-                        System.out.println("New client registered!");
+//                        write new client into database
+//                        clients.add(new Client(newId, name, lname, password));
+                        database.addClient(name, lname, password);
                         id = newId;
                         newId++; //id for next client
 
