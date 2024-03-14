@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.io.IOException;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException, SQLException {
@@ -11,11 +9,9 @@ public class Main {
 //        Variables:
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         boolean inProcess = false; //need for body work
-        boolean clientExist = false; //need to verification
-        int id = 0;
-        int newId = 0;
+        boolean inVerification = true; //need to verification
+        int id = -1; // current client's id
 
-        List<Client> clients = new ArrayList<>();
         Database database = new Database();
 
         String request = null;
@@ -25,7 +21,7 @@ public class Main {
         System.out.println("For using machine write needed request:\n");
 
         while (true) {
-            while (!clientExist) {
+            while (inVerification) {
 
                 System.out.println("""
                         If you are new client - "reg"
@@ -53,13 +49,14 @@ public class Main {
                             }
                         }
 //                        write new client into database
-//                        clients.add(new Client(newId, name, lname, password));
-                        database.addClient(name, lname, password);
-                        id = newId;
-                        newId++; //id for next client
-
-                        clientExist = true;     // end registration
-                        inProcess = true;
+                        id = database.addClient(name, lname, password);
+                        if (id>=0) {
+                            System.out.println("New client registered!");
+                            inVerification = false;     // end registration
+                            inProcess = true;
+                        } else{
+                            System.out.println("Client already exists!");
+                        }
                     }
 
 //                      client log in
@@ -70,21 +67,13 @@ public class Main {
                         String lname = bufferedReader.readLine();
                         System.out.print("Password: ");
                         String password = bufferedReader.readLine();
-                        boolean exist = false;
-                        for (Client client : clients)       // checking if client exist in database
-                        {
-                            if (name.equals(client.getName()) && lname.equals(client.getLname()) &&
-                                    password.equals(client.getPassword())) {
-                                id = client.getId();
-                                exist = true;
-                                break;
-                            }
-                        }
-                        if (!exist) {
-                            System.out.println("Invalid name or password!");
-                        } else {
-                            clientExist = true; //end of verification if data is correct
+                        if(database.clientExistence(name, lname, password)>=0){
+                            id = database.clientExistence(name, lname, password); // return client id from database
                             inProcess = true;
+                            inVerification = false;
+                            System.out.println("Success!");
+                        } else{
+                            System.out.println("Invalid name or password!");
                         }
                     }
 //                    program stopping
@@ -113,18 +102,22 @@ public class Main {
                     }
                     case "in" -> {
                         System.out.print("What amount you want to put: ");
-                        float amount = Float.parseFloat(bufferedReader.readLine());
-                        clients.get(id).setMoneyIntoBill(amount);
+                        int amount = Integer.parseInt(bufferedReader.readLine());
+                        database.putInAccount(id, amount);
                     }
                     case "out" -> {
                         System.out.print("What amount you want to get: ");
-                        float amount = Float.parseFloat(bufferedReader.readLine());
-                        clients.get(id).getMoneyFromBill(amount);
+                        int amount = Integer.parseInt(bufferedReader.readLine());
+                        if (database.outFromAccount(id, amount)){
+                            System.out.println("Success!");
+                        } else {
+                            System.out.println("Not enough money!");
+                        }
                     }
-                    case "show" -> System.out.println(clients.get(id).getClientInfo());
+                    case "show" -> System.out.println(database.getClientData(id));
                     case "exit" -> {
                         inProcess = false;
-                        clientExist = false;
+                        inVerification = true;
                     }
                     default -> System.out.println("Incorrect request! Please try again");
                 }
