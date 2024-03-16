@@ -26,14 +26,13 @@ public class Database {
         String clientData = "";
         try {
             ResultSet rs = statement.executeQuery(sql);
-        while (rs.next()){
-            int personid = rs.getInt("personid");
-            String firstName = rs.getString("firstname");
-            String secondName = rs.getString("lastname");
-            String clientPassword = rs.getString("clientpassword");
-            int account = rs.getInt("account");
-            clientData = (personid+": "+firstName+" "+secondName+" "+clientPassword+" "+account);
-        }
+            while (rs.next()){
+                int personid = rs.getInt("personid");
+                String firstName = rs.getString("firstname");
+                String secondName = rs.getString("lastname");
+                int account = rs.getInt("account");
+                clientData = (personid+") "+firstName+" "+secondName+": "+account+" tg");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -88,7 +87,10 @@ public class Database {
     }
 
     public void putInAccount(int id, int amount) throws SQLException {
-        sql = "UPDATE clients_info SET account="+amount+" WHERE personid="+id;
+        ResultSet resultSet = statement.executeQuery("SELECT account FROM clients_info WHERE personid="+id);
+        resultSet.next();
+        int currentAmount = resultSet.getInt("account");
+        sql = "UPDATE clients_info SET account="+(currentAmount+amount)+" WHERE personid="+id;
         statement.executeUpdate(sql);
         System.out.println("Account is updated!");
     }
@@ -104,6 +106,7 @@ public class Database {
         }
         return false;
     }
+
     public void connectionClose(){
         try {
             connection.close();

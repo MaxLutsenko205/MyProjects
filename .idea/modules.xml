@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ATM_machine/ATM_machine.iml" filepath="$PROJECT_DIR$/ATM_machine/ATM_machine.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/Code_examples.iml" filepath="$PROJECT_DIR$/src/Code_examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Patterns/FactoryMethod/FactoryMethod.iml" filepath="$PROJECT_DIR$/Patterns/FactoryMethod/FactoryMethod.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/MyProjects.iml" filepath="$PROJECT_DIR$/.idea/MyProjects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Patterns/Patterns.iml" filepath="$PROJECT_DIR$/Patterns/Patterns.iml" />
       <module fileurl="file://$PROJECT_DIR$/Socket_programming/Socket_programming.iml" filepath="$PROJECT_DIR$/Socket_programming/Socket_programming.iml" />
       <module fileurl="file://$PROJECT_DIR$/Swing/Swing.iml" filepath="$PROJECT_DIR$/Swing/Swing.iml" />
     </modules>

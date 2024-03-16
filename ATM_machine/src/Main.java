@@ -14,13 +14,14 @@ public class Main {
 
         Database database = new Database();
 
-        String request = null;
+        String request;
 
 //        Introduction
         System.out.println("========== ATM MACHINE ==========");
         System.out.println("For using machine write needed request:\n");
 
         while (true) {
+//            client verification
             while (inVerification) {
 
                 System.out.println("""
@@ -30,12 +31,12 @@ public class Main {
                 request = bufferedReader.readLine();
 
                 switch (request) {
-//                      Client registration
+//                      client registration
                     case "reg" -> {
                         System.out.print("Please write your first name: ");
                         String name = bufferedReader.readLine();
                         System.out.print("Please write your second name: ");
-                        String lname = bufferedReader.readLine();
+                        String lName = bufferedReader.readLine();
                         System.out.print("Password(greater than 5 characters): ");
                         boolean available = false;
                         String password = null;
@@ -49,7 +50,7 @@ public class Main {
                             }
                         }
 //                        write new client into database
-                        id = database.addClient(name, lname, password);
+                        id = database.addClient(name, lName, password);
                         if (id>=0) {
                             System.out.println("New client registered!");
                             inVerification = false;     // end registration
@@ -64,11 +65,11 @@ public class Main {
                         System.out.print("Your first name: ");
                         String name = bufferedReader.readLine();
                         System.out.print("Your second name: ");
-                        String lname = bufferedReader.readLine();
+                        String lName = bufferedReader.readLine();
                         System.out.print("Password: ");
                         String password = bufferedReader.readLine();
-                        if(database.clientExistence(name, lname, password)>=0){
-                            id = database.clientExistence(name, lname, password); // return client id from database
+                        if(database.clientExistence(name, lName, password)>=0){
+                            id = database.clientExistence(name, lName, password); // return client id from database
                             inProcess = true;
                             inVerification = false;
                             System.out.println("Success!");
@@ -87,19 +88,17 @@ public class Main {
             }
 
 
-            //        Machine body
+            // Account interface
             System.out.println("To show commands - \"info\"");
             while (inProcess) {
                 request = bufferedReader.readLine(); //entering a command
                 switch (request) {
-                    case "info" -> {
-                        System.out.println("""
-                                  *Show account information - "show"
-                                  *Deposit money - "in"
-                                  *Take money back - "out"
-                                  *Log out - "exit"
-                                """);
-                    }
+                    case "info" -> System.out.println("""
+                              *Show account information - "show"
+                              *Deposit money - "in"
+                              *Take money back - "out"
+                              *Log out - "exit"
+                            """);
                     case "in" -> {
                         System.out.print("What amount you want to put: ");
                         int amount = Integer.parseInt(bufferedReader.readLine());
